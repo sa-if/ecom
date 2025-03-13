@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Address": address,
                 "Total Amount": parseFloat(formData.get("totalAmount")),
                 "Items": formData.get("items"),
-                "Status": "Processing",
+                "Status": "Received",
                 "Payment Option": paymentOption,
                 "Payment Number": paymentNumber,
                 "Transaction ID": transactionId
