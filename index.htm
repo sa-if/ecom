@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Modern E-commerce Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Modern Reset and Base Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #343a40;
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-weight: 700;
+      color: #212529;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 2em;
+      margin-bottom: 1em;
+      font-size: 2.5em;
+    }
+
+    /* Product Container */
+    #products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product {
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+
+    .product-name {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.2em;
+      font-weight: 500;
+    }
+
+    .product-description {
+      margin-bottom: 10px;
+      color: #6c757d;
+      font-size: 0.95em;
+      flex-grow: 1;
+    }
+
+    .product-price {
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+      color: #007bff;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Cart Styles */
+    #cart {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #cart h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    #cart-items {
+      list-style: none;
+      padding: 0;
+    }
+
+    #cart-items li {
+      padding: 10px 0;
+      border-bottom: 1px dashed #ced4da;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #cart-items li:last-child {
+      border-bottom: none;
+    }
+
+    #cart-total {
+      font-weight: bold;
+      margin-top: 15px;
+      font-size: 1.2em;
+      text-align: right;
+    }
+
+    /* Order Form Styles */
+    #orderForm {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #orderForm h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    #orderForm label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    #orderForm input[type="text"],
+    #orderForm input[type="email"],
+    #orderForm input[type="tel"],
+    #orderForm input[type="number"],
+    #orderForm textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+
+    #orderForm textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    #cart-summary-for-form {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      background-color: #f8f9fa;
+    }
+
+    #cart-summary-for-form h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+
+    #cart-summary-for-form ul {
+      padding-left: 20px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    #formTotalAmount,
+    #formItems {
+      background-color: #f8f9fa;
+    }
+
+    #orderForm button[type="submit"] {
+      margin-top: 20px;
+      width: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #dee2e6;
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Welcome to Our Store!</h1>
+  <div id="products-container">
+  </div>
+  <div id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cart-items">
+    </ul>
+    <div id="cart-total">Total: $0.00</div>
+  </div>
+  <hr>
+  <h2>Place Your Order</h2>
+  <form id="orderForm">
+    <label for="customerName">
+      Customer Name:
+      <input type="text" id="customerName" name="customerName" required>
+    </label>
+    <br>
+    <label for="email">
+      Email:
+      <input type="email" id="email" name="email" required>
+    </label>
+    <br>
+    <label for="phone">
+      Phone:
+      <input type="tel" id="phone" name="phone" required>
+    </label>
+    <br>
+    <label for="address">
+      Address:
+      <textarea id="address" name="address" required></textarea>
+    </label>
+    <br>
+    <div id="cart-summary-for-form">
+    </div>
+    <br>
+    <label for="formTotalAmount">
+      Total Amount ($):
+      <input type="number" id="formTotalAmount" name="totalAmount" step="0.01" readonly required>
+    </label>
+    <br>
+    <label for="formItems">
+      Order Items (Details):
+      <textarea id="formItems" name="items" readonly required></textarea>
+    </label>
+    <br>
+    <button type="submit">Submit Order</button>
+  </form>
+  <script>
+    const products = [{
+      id: 1,
+      name: "Awesome T-Shirt",
+      description: "A comfortable and stylish t-shirt.",
+      price: 25.00,
+      image: "https://media.istockphoto.com/id/1830111752/photo/black-t-shirt-short-sleeve-mockup.jpg?s=1024x1024&w=is&k=20&c=XsmPOD73lHWEsXDf-blvm5oHiPzuen-SJRsLw4hsHi8="
+    },
+    {
+      id: 2,
+      name: "Cool Coffee Mug",
+      description: "Enjoy your coffee in this cool mug.",
+      price: 12.50,
+      image: "https://plus.unsplash.com/premium_photo-1674406102318-c9d362ad510b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 3,
+      name: "Fun Stickers Pack",
+      description: "A pack of fun and colorful stickers.",
+      price: 5.00,
+      image: "https://img.freepik.com/free-vector/funny-sticker-hand-drawn-collection_23-2148373655.jpg"
+    }
+    ];
+
+    let cart = [];
+
+    function displayProducts() {
+      const productsContainer = document.getElementById("products-container");
+      productsContainer.innerHTML = ""; // Clear existing products
+      products.forEach(product => {
+        const productDiv = createProductElement(product);
+        productsContainer.appendChild(productDiv);
+      });
+    }
+
+    function createProductElement(product) {
+      const productDiv = document.createElement("div");
+      productDiv.classList.add("product");
+
+      const img = document.createElement("img");
+      img.src = product.image || 'placeholder.png'; // Use placeholder if no image
+      img.alt = product.name;
+      productDiv.appendChild(img);
+
+      const productInfoDiv = document.createElement("div");
+      productInfoDiv.classList.add("product-info");
+
+      const productName = document.createElement("h3");
+      productName.classList.add("product-name");
+      productName.textContent = product.name;
+      productInfoDiv.appendChild(productName);
+
+      const productDescription = document.createElement("p");
+      productDescription.classList.add("product-description");
+      productDescription.textContent = product.description;
+      productInfoDiv.appendChild(productDescription);
+
+      const productPrice = document.createElement("p");
+      productPrice.classList.add("product-price");
+      productPrice.textContent = `$${product.price.toFixed(2)}`;
+      productInfoDiv.appendChild(productPrice);
+
+      const addButton = document.createElement("button");
+      addButton.textContent = "Add to Cart";
+      addButton.dataset.productId = product.id; // Store product ID
+      addButton.addEventListener("click", addToCart);
+      productInfoDiv.appendChild(addButton);
+
+      productDiv.appendChild(productInfoDiv);
+      return productDiv;
+    }
+
+    function addToCart(event) {
+      const productId = parseInt(event.target.dataset.productId);
+      const productToAdd = products.find(product => product.id === productId);
+
+      if (productToAdd) {
+        const existingCartItemIndex = cart.findIndex(item => item.productId === productId);
+        if (existingCartItemIndex !== -1) {
+          cart[existingCartItemIndex].quantity += 1; // Increment quantity if item exists
+        } else {
+          cart.push({
+            productId: productId,
+            quantity: 1,
+            product: productToAdd // Store product details in cart item
+          }); // Add new item with quantity 1
+        }
+        updateCartDisplay();
+        updateFormSummary();
+      }
+    }
+
+    function updateCartDisplay() {
+      const cartItemsList = document.getElementById("cart-items");
+      const cartTotalDisplay = document.getElementById("cart-total");
+      cartItemsList.innerHTML = ""; // Clear previous cart display
+      let cartTotal = 0;
+
+      cart.forEach(cartItem => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+            <span>${cartItem.product.name} x ${cartItem.quantity}</span>
+            <span>$${(cartItem.product.price * cartItem.quantity).toFixed(2)}</span>
+          `;
+        cartItemsList.appendChild(listItem);
+        cartTotal += cartItem.product.price * cartItem.quantity;
+
+      });
+
+      cartTotalDisplay.textContent = `Total: $${cartTotal.toFixed(2)}`;
+    }
+
+    function updateFormSummary() {
+      const cartSummaryDiv = document.getElementById("cart-summary-for-form");
+      const formTotalInput = document.getElementById("formTotalAmount");
+      const formItemsTextarea = document.getElementById("formItems");
+      let cartTotal = 0;
+      let itemsDescription = "";
+      cartSummaryDiv.innerHTML = "<h3>Order Summary:</h3><ul>";
+
+      cart.forEach(cartItem => {
+        const itemTotal = cartItem.product.price * cartItem.quantity;
+        cartTotal += itemTotal;
+        cartSummaryDiv.innerHTML +=
+          `<li>${cartItem.product.name} x ${cartItem.quantity} - $${itemTotal.toFixed(2)}</li>`;
+        itemsDescription += `${cartItem.product.name} x ${cartItem.quantity}, `;
+
+      });
+      cartSummaryDiv.innerHTML += "</ul>";
+      formTotalInput.value = cartTotal.toFixed(2);
+      formItemsTextarea.value = itemsDescription.slice(0, -2); // Remove trailing comma and space
+
+    }
+
+    document.getElementById("orderForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // Generate Order Date
+      const currentDate = new Date();
+      const orderDate = currentDate.toISOString().slice(0, 10); // Format as YYYY-MM-DD
+
+      // Gather form data
+      const formData = new FormData(event.target);
+      const orderData = {
+        fields: {
+          "Order Date": orderDate, // Use generated order date
+          "Customer Name": formData.get("customerName"),
+          "Email": formData.get("email"),
+          "Phone": formData.get("phone"),
+          "Address": formData.get("address"),
+          "Total Amount": parseFloat(formData.get("totalAmount")),
+          "Items": formData.get("items"), // Now includes item details
+          "Status": "Processing" // Automatically set status to "Processing"
+        }
+      };
+
+      // Make POST request to Airtable
+      fetch("https://api.airtable.com/v0/appwM7vvebCuxFvyo/Orders", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer patY7Wci1nOQOxvbj.47251cf00c6cf895d81ab00290c9ed636b65beea73529c5e0cb5d22f7dbcddd2",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("Success:", data);
+          alert("Order submitted successfully!");
+          cart = []; // Clear cart after successful submission
+          updateCartDisplay();
+          updateFormSummary();
+          document.getElementById("orderForm").reset(); // Clear the form
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("Error submitting order. Please try again.");
+        });
+    });
+
+    displayProducts(); // Initialize product display
+    updateCartDisplay(); // Initialize cart display (empty)
+    updateFormSummary(); // Initialize form summary (empty)
+  </script>
+</body>
+
+</html>
