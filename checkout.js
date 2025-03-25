@@ -139,4 +139,15 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Error submitting order. Please try again.");
         });
     });
+
+    function submitOrder() {
+        // Check if there are any items added to the cart
+        if (!cart || cart.length === 0) {
+            alert("Firstly add some item to the cart.");
+            return; // Prevent further order processing
+        }
+        
+        // ...existing order submission code...
+        // e.g., sending IP address & order details to Airtable
+    }
 });
