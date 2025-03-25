@@ -30,10 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "index.html";
     });
 
-    // Function to clear all saved data and refresh page
+    // Function to clear all saved data and redirect to shop
     function clearSavedDataAndRefresh() {
         localStorage.clear();
-        window.location.reload();
+        window.location.href = "index.html";
     }
 
     // Order form submit handler
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             console.log("Success:", data);
             alert("Order submitted successfully!");
-            // Optionally clear the form and all locally saved cart data before refreshing
+            // Optionally clear the form before redirecting
             event.target.reset();
             clearSavedDataAndRefresh();
         })
